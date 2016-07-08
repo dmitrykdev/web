@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:align="http://www.w3.org/1999/html">
+<head>
+	<title>web-chat</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<form id="join" th:action="@{/chat}" data-bind="visible: requestingXHR() == null">
+		<p>
+			<label for="user">User: </label>
+			<input id="user" name="user" type="text" data-bind="value: userName"/>
+			<input name="messageID" type="hidden" data-bind="value: messageID"/>
+			<button id="start" type="submit" data-bind="click: joinChat">Join Chat</button>
+		</p>
+	</form>
+
+	<form id="leaveChatForm" th:action="@{/chat}" data-bind="visible: requestingXHR() != null">
+		<p>
+			Username: <regular data-bind="text: userName"></regular>
+			<button id="leave" type="submit" data-bind="click: leaveChat">Leave chat</button>
+		</p>
+	</form>
+
+	<div data-bind="visible: requestingXHR() != null">
+		<textarea rows="15" cols="45" readonly="readonly" data-bind="text: chatContent"></textarea>
+	</div>
+	
+	<form id="post" th:action="@{/chat}" data-bind="visible: requestingXHR() != null">
+		<p>
+			<input id="message" name="message" type="text" data-bind="value: message" />
+			<button id="post" type="submit" data-bind="click: postMessages">Post</button>
+		</p>
+	</form>
+</body>
+<script type="text/javascript" src="../../../resources/js/jquery-3.0.0.js" th:src="@{/resources/js/jquery-3.0.0.js}"></script>
+<script type="text/javascript" src="../../../resources/js/knockout-2.0.0.js" th:src="@{/resources/js/knockout-3.4.0.debug.js}"></script>
+<script type="text/javascript" src="../../../resources/js/chat.js" th:src="@{/resources/js/chat.js}"></script>
+
+</html>
